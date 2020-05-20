@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place ID Finder</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+  </head>
+  <body>
+
+    <input type="text" id="pac-input" value="location">
+    <button onclick="myFunction()">Try it</button>
+
+    <p id="demo"></p>
+
+    <script>
+
+      function myFunction()
+      {
+      	var geocoder = new google.maps.Geocoder();
+
+        var x = document.getElementById("pac-input").value;
+
+        geocoder.geocode( {"address" : x}, function(results, status){
+        	if(status == google.maps.GeocoderStatus.OK)
+        	{
+        		var lol = "working";
+        	}
+        })
+
+        // var searchBox = new google.maps.places.Autocomplete(x);
+
+        // var place = searchBox.getPlace();
+
+        // var placeId = place.place_id();
+
+        document.getElementById("demo").innerHTML = x;
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADCYzQ1DIBBNOddc_bP4mrQcgswn_LZ5M"></script>
+  </body>
+</html>

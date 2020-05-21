@@ -1,6 +1,7 @@
 from flask import Flask , render_template, jsonify, request, redirect, url_for
 from json2html import *
 import pandas as pd
+from scrape import scrape_maps
 
 app = Flask(__name__)
 
@@ -13,8 +14,11 @@ def submit():
 	if request.method == 'POST':
 		file = request.form['filename']
 		df = pd.read_csv(file)
+		data = df[["Places"]].values
 
-	return df.Places[1]
+	scraped_data = scrape_maps(data)
+
+	return jsonify(scraped_data)
 
 
 

@@ -12,7 +12,6 @@ def scrape_maps(data):
 	# data = ["ChIJZ-DLDJ9HrTsR681u8-Ui8v4"]
 
 	PATH = "C:\Program Files (x86)\chromedriver.exe"
-	driver = webdriver.Chrome(PATH)
 
 	location_data = {}
 
@@ -31,8 +30,13 @@ def scrape_maps(data):
 
 		location_data[place_id] = {}
 
+		try:
+			driver = webdriver.Chrome(PATH)
+			driver.get(url)
 
-		driver.get(url)
+		except Exception as e:
+			driver.quit()
+			continue
 
 		time.sleep(10)
 
@@ -75,7 +79,6 @@ def scrape_maps(data):
 
 
 		try:
-			# waits until the button is loaded into the HTML
 			WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "allxGeDnJMl__button")))
 
 			element = driver.find_element_by_class_name("allxGeDnJMl__button")
@@ -83,6 +86,7 @@ def scrape_maps(data):
 		except:
 			pass
 
+		time.sleep(5)
 
 		try:
 
@@ -97,12 +101,13 @@ def scrape_maps(data):
 				scrollable_div = driver.find_element_by_css_selector('div.section-layout.section-scrollbox.scrollable-y.scrollable-show')
 
 				driver.execute_script('arguments[0].scrollTop = arguments[0].scrollHeight', scrollable_div)
+
 				time.sleep(pause_time)
 
 				x=x+1
 
 		except:
-			pass
+			driver.quit()
 
 		try:
 			element = driver.find_elements_by_class_name("section-expand-review")
@@ -139,4 +144,4 @@ def scrape_maps(data):
 
 		driver.quit()
 
-		return(location_data)
+	return(location_data)

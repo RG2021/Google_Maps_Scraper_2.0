@@ -19,7 +19,7 @@ def submit():
 	if "Places" in df.columns:
 		data = df[["Places"]].values
 	else:
-		return("ERROR!!! CSV File doesn't have a 'Places' Column. Input Location ID or URL in Places Column")
+		return("ERROR!!! CSV File doesn't have a 'Places' Column. Input Locations in Places Column")
 
 	scraped_data = scrape_maps(data)
 

@@ -8,3 +8,15 @@
 [0520/172318.886:ERROR:exception_snapshot_win.cc(98)] thread ID 12376 not found in process
 [0520/172318.893:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0520/172318.894:ERROR:exception_snapshot_win.cc(98)] thread ID 14520 not found in process
+[0520/175301.798:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0520/175301.799:ERROR:exception_snapshot_win.cc(98)] thread ID 3540 not found in process
+[0520/175301.835:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0520/175301.835:ERROR:exception_snapshot_win.cc(98)] thread ID 7452 not found in process
+[0521/144059.192:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0521/144059.214:ERROR:exception_snapshot_win.cc(98)] thread ID 9456 not found in process
+[0521/144059.260:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0521/144059.260:ERROR:exception_snapshot_win.cc(98)] thread ID 11956 not found in process
+[0521/144059.326:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0521/144059.326:ERROR:exception_snapshot_win.cc(98)] thread ID 13636 not found in process
+[0521/144059.372:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
+[0521/144059.372:ERROR:exception_snapshot_win.cc(98)] thread ID 3200 not found in process

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <body>
 
@@ -10,4 +10,133 @@
 </form>
 
 </body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Maps Scraper by Rohan Goel</title>
+</head>
+
+<style>
+	h1
+	{
+		text-align: center;
+	}
+
+	p
+	{
+		font-size: 10px;
+	}
+	#signup-form
+	{
+	 	text-align: center;
+	}
+
+	#myProgress
+	{
+	  display: none;
+	  width: 100%;
+	  height: 35px;
+	}
+
+	#myBar
+	{
+	  width: 1%;
+	  height: 35px;
+	  text-align: center;
+	  line-height: 35px;
+	  color: white;
+	}
+
+	input[type="text"]::placeholder 
+	{  
+        text-align: center; 
+    } 
+
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+
+<body>
+	<section>
+		<div class="w3-container">
+			<div class="w3-panel w3-card" style="height: 400px; width: 500px; margin-left: 30%; margin-top: 5%;">
+				<h1>Google Maps Scraper</h1><br><br>
+				<p>Upload a CSV File containing Place ID's or URL of Locations with "Places" as column name</p>
+				<form name="myForm1" method="post" action="/" onsubmit="disableButton();">
+				  <input type="file" accept=".csv" id="myFile" name="filename" onchange="showButton()">
+				  <input id="submitbutton" class="btn btn-primary btn-lg mr-2 mb-2" type="submit" name="submitbutton" value="Analyze Reviews" onclick="change();show();" disabled/>
+				</form>
+				<br/>
+				<div id="myProgress" class="progress">
+					<div id="myBar" class="progress-bar progress-bar-striped progress-bar-animated" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<br/>
+				<p>1. Scrapes all the Data from Google Maps.</p>
+				<p>2. Currently Setted the max limit to 60 for demonstration, but could be increased upon will.</p>
+				<p>2. Can Scrape using the both Location URL or Place ID</p>
+				<p>3. Using FLASK and Selenium for the backend</p>
+			</div>
+		</div>
+	</section>
+</body>
+
+<script type="text/javascript">
+	function change()
+	{
+		var elem = document.forms["myForm1"]["submitbutton"];
+		console.log(elem.value);
+		if(elem.value=="Analyze Reviews")
+		{
+			elem.value = "Analyzing...";
+		}
+	}
+
+	function showButton()
+    {
+    	document.getElementById("submitbutton").disabled = false;
+    }
+
+
+	function show()
+	{
+		document.getElementById("myProgress").style.display = "block";
+
+		var i = 0;
+		if (i == 0)
+		{
+			i = 1;
+			var elem = document.getElementById("myBar");
+			var width = 1;
+			var id = setInterval(frame, 500);
+			function frame()
+			{
+			  if (width >= 100)
+			  {
+				clearInterval(id);
+				i = 0;
+			  }
+			  else
+			  {
+				width++;
+				elem.style.width = width + "%";
+				elem.innerHTML = width + "%";
+			  }
+			}
+		}
+	}
+
+	function disableButton()
+	{
+		document.getElementById("submitbutton").disabled = true;
+	}
+</script>
 </html>

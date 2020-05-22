@@ -77,13 +77,11 @@
 					<div id="myBar" class="progress-bar progress-bar-striped progress-bar-animated" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 
-				<div id="links" style="visibility: {{lol}}">
+				<div id="links" style="visibility: {{lol}}; padding-bottom: 15px;">
 					<h6 style="display:inline-block">Download: </h6>
 					<a href="{{ url_for('static', filename='data/Reviews_Data.csv') }}"  download>Reviews File</a>
 					<a href="{{ url_for('static', filename='data/Location_Data.csv') }}" download>Location File</a>
 				</div>
-				<br>
-				<br>
 				<p>1. Scrapes all the Data from Google Maps.</p>
 				<p>2. Currently Setted the max limit to 60 for demonstration, but could be increased upon will.</p>
 				<p>2. Can Scrape using Location Name or ID or URL.</p>

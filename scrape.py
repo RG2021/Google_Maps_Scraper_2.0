@@ -20,9 +20,38 @@ def scrape_maps(data):
 
 	for id in data:
 
-		place_id = id[0]
+		search_field = id[0]
 
-		url = "https://www.google.com/maps/search/?api=1&query={0}&query_place_id=<place_id>".format(place_id)
+		driver = webdriver.Chrome(PATH, chrome_options=options)
+
+		driver.get("https://www.google.com")
+
+		time.sleep(2)
+
+		search = driver.find_element_by_name("q")
+		search.send_keys(search_field)
+
+		time.sleep(5)
+
+		try:
+			text = driver.find_element_by_css_selector("[class='jKWzZXdEJWi__suggestions-inner-container']")
+			text.click()
+		except:
+			search.send_keys(Keys.RETURN)
+
+
+		time.sleep(5)
+
+		try:
+			place_id_loc = driver.find_element_by_css_selector("[id='wrkpb']")
+			final_place_id = place_id_loc.get_attribute("data-pid")
+			place_id = final_place_id
+
+		except Exception as e :
+			driver.quit()
+			continue
+
+		url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
 
 		# if(place_id.startswith("https://www.google.com/maps/")):
 		# 	url = place_id
@@ -34,7 +63,6 @@ def scrape_maps(data):
 		location_data[place_id] = {}
 
 		try:
-			driver = webdriver.Chrome(PATH, chrome_options=options)
 			driver.get(url)
 
 		except Exception as e:

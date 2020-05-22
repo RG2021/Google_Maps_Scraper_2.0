@@ -18,8 +18,9 @@
 
 	a
 	{
-		visibility: hidden;
-		margin: 5px;
+		margin: 10px;
+		outline: 1px solid black;
+  		outline-offset: 5px;
 	}
 	#signup-form
 	{
@@ -40,6 +41,11 @@
 	  text-align: center;
 	  line-height: 35px;
 	  color: white;
+	}
+
+	#links
+	{
+		visibility: hidden;
 	}
 
 	input[type="text"]::placeholder 
@@ -71,8 +77,11 @@
 					<div id="myBar" class="progress-bar progress-bar-striped progress-bar-animated" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 
-				<a href="{{ url_for('static', filename='data/Reviews_Data.csv') }}" style="visibility: {{lol}}" download>Reviews File</a>
-				<a href="{{ url_for('static', filename='data/Location_Data.csv') }}" style="visibility: {{lol}}" download>Location File</a>
+				<div id="links" style="visibility: {{lol}}">
+					<h6 style="display:inline-block">Download: </h6>
+					<a href="{{ url_for('static', filename='data/Reviews_Data.csv') }}"  download>Reviews File</a>
+					<a href="{{ url_for('static', filename='data/Location_Data.csv') }}" download>Location File</a>
+				</div>
 				<br>
 				<br>
 				<p>1. Scrapes all the Data from Google Maps.</p>

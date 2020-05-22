@@ -1,18 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<body>
-
-<p>Click on the "Choose File" button to upload a file:</p>
-
-<form method="post" action="/">
-  <input type="file" id="myFile" name="filename">
-  <input type="submit">
-</form>
-
-</body>
-</html> -->
-
-
 
 <!DOCTYPE html>
 <html>
@@ -29,6 +14,12 @@
 	p
 	{
 		font-size: 10px;
+	}
+
+	a
+	{
+		visibility: hidden;
+		margin: 5px;
 	}
 	#signup-form
 	{
@@ -79,10 +70,14 @@
 				<div id="myProgress" class="progress">
 					<div id="myBar" class="progress-bar progress-bar-striped progress-bar-animated" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
-				<br/>
+
+				<a href="{{ url_for('static', filename='data/Reviews_Data.csv') }}" style="visibility: {{lol}}" download>Reviews File</a>
+				<a href="{{ url_for('static', filename='data/Location_Data.csv') }}" style="visibility: {{lol}}" download>Location File</a>
+				<br>
+				<br>
 				<p>1. Scrapes all the Data from Google Maps.</p>
 				<p>2. Currently Setted the max limit to 60 for demonstration, but could be increased upon will.</p>
-				<p>2. Can Scrape using the both Location URL or Place ID</p>
+				<p>2. Can Scrape using Location Name or ID or URL.</p>
 				<p>3. Using FLASK and Selenium for the backend</p>
 			</div>
 		</div>
@@ -116,7 +111,7 @@
 			i = 1;
 			var elem = document.getElementById("myBar");
 			var width = 1;
-			var id = setInterval(frame, 500);
+			var id = setInterval(frame, 800);
 			function frame()
 			{
 			  if (width >= 100)

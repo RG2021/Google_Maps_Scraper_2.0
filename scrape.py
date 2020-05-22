@@ -13,6 +13,9 @@ def scrape_maps(data):
 
 	PATH = "C:\Program Files (x86)\chromedriver.exe"
 
+	options = Options()
+	options.add_argument("--headless")
+
 	location_data = {}
 
 	for id in data:
@@ -31,7 +34,7 @@ def scrape_maps(data):
 		location_data[place_id] = {}
 
 		try:
-			driver = webdriver.Chrome(PATH)
+			driver = webdriver.Chrome(PATH, chrome_options=options)
 			driver.get(url)
 
 		except Exception as e:

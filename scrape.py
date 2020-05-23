@@ -17,24 +17,25 @@ def scrape_maps(data):
 	options.add_argument("--headless")
 
 	location_data = {}
+	place_id_data = []
 
 	for id in data:
 
 		search_field = id[0]
 
-		driver = webdriver.Chrome(PATH, chrome_options=options)
+		google_driver = webdriver.Chrome(PATH, chrome_options=options)
 
-		driver.get("https://www.google.com")
+		google_driver.get("https://www.google.com")
 
 		time.sleep(2)
 
-		search = driver.find_element_by_name("q")
+		search = google_driver.find_element_by_name("q")
 		search.send_keys(search_field)
 
 		time.sleep(5)
 
 		try:
-			text = driver.find_element_by_css_selector("[class='jKWzZXdEJWi__suggestions-inner-container']")
+			text = google_driver.find_element_by_css_selector("[class='jKWzZXdEJWi__suggestions-inner-container']")
 			text.click()
 		except:
 			search.send_keys(Keys.RETURN)
@@ -43,15 +44,22 @@ def scrape_maps(data):
 		time.sleep(5)
 
 		try:
-			place_id_loc = driver.find_element_by_css_selector("[id='wrkpb']")
+			place_id_loc = google_driver.find_element_by_css_selector("[id='wrkpb']")
 			final_place_id = place_id_loc.get_attribute("data-pid")
 			place_id = final_place_id
 
+			place_id_data.append([search_field, place_id])
+
+			google_driver.quit()
+
 		except Exception as e :
-			driver.quit()
+			google_driver.quit()
+			place_id_data.append([search_field, "NA"])
 			continue
 
 		url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
+
+		driver = webdriver.Chrome(PATH, chrome_options=options)
 
 		# if(place_id.startswith("https://www.google.com/maps/")):
 		# 	url = place_id
@@ -61,6 +69,13 @@ def scrape_maps(data):
 		# url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
 
 		location_data[place_id] = {}
+		location_data[place_id]["rating"] = "NA"
+		location_data[place_id]["reviews_count"] = "NA"
+		location_data[place_id]["location"] = "NA"
+		location_data[place_id]["contact"] = "NA"
+		location_data[place_id]["Time"] = {}
+		location_data[place_id]["Reviews"] = []
+
 
 		try:
 			driver.get(url)
@@ -81,8 +96,8 @@ def scrape_maps(data):
 			total_reviews = driver.find_element_by_class_name("section-rating-term")
 			address = driver.find_element_by_css_selector("[data-section-id='ad']")
 			phone_number = driver.find_element_by_css_selector("[data-section-id='pn0']")
-			days = driver.find_elements_by_css_selector("[class='lo7U087hsMA__row-header']")
-			times = driver.find_elements_by_css_selector("[class='lo7U087hsMA__row-interval']")
+			days = driver.find_elements_by_class_name("lo7U087hsMA__row-header")
+			times = driver.find_elements_by_class_name("lo7U087hsMA__row-interval")
 
 		except Exception as e:
 			pass
@@ -100,8 +115,6 @@ def scrape_maps(data):
 			pass
 
 
-		location_data[place_id]["Time"] = {}
-
 		try:
 			for i, j in zip(day, open_close_time):
 				location_data[place_id]["Time"][i] = j
@@ -115,7 +128,8 @@ def scrape_maps(data):
 			element = driver.find_element_by_class_name("allxGeDnJMl__button")
 			element.click()
 		except:
-			pass
+			driver.quit()
+			continue
 
 		time.sleep(5)
 
@@ -164,7 +178,6 @@ def scrape_maps(data):
 			review_dates_list = [a.text for a in review_dates]
 			review_stars_list = [a for a in review_stars_final]
 
-			location_data[place_id]["Reviews"] = []
 
 			for (a,b,c,d) in zip(review_names_list, review_text_list, review_dates_list, review_stars_list):
 				location_data[place_id]["Reviews"].append({"name":a, "review":b, "date":c, "rating":d})
@@ -175,4 +188,4 @@ def scrape_maps(data):
 
 		driver.quit()
 
-	return(location_data)
+	return(location_data, place_id_data)

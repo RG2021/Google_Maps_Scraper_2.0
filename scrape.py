@@ -9,9 +9,7 @@ import time
 
 def scrape_maps(data):
 
-	# data = ["ChIJZ-DLDJ9HrTsR681u8-Ui8v4"]
-
-	PATH = "C:\Program Files (x86)\chromedriver.exe"
+	PATH = "chromedriver.exe"
 
 	options = Options()
 	options.add_argument("--headless")
@@ -57,23 +55,17 @@ def scrape_maps(data):
 			place_id_data.append([search_field, "NA"])
 			continue
 
+
 		url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
 
 		driver = webdriver.Chrome(PATH, chrome_options=options)
-
-		# if(place_id.startswith("https://www.google.com/maps/")):
-		# 	url = place_id
-		# else:
-		# 	url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
-
-		# url = "https://www.google.com/maps/search/?api=1&query=<address>&query_place_id={0}".format(place_id)
 
 		location_data[place_id] = {}
 		location_data[place_id]["rating"] = "NA"
 		location_data[place_id]["reviews_count"] = "NA"
 		location_data[place_id]["location"] = "NA"
 		location_data[place_id]["contact"] = "NA"
-		location_data[place_id]["Time"] = {}
+		location_data[place_id]["Time"] = {"Monday":"NA", "Tuesday":"NA", "Wednesday":"NA", "Thursday":"NA", "Friday":"NA", "Saturday":"NA", "Sunday":"NA"}
 		location_data[place_id]["Reviews"] = []
 
 
@@ -95,7 +87,12 @@ def scrape_maps(data):
 			avg_rating = driver.find_element_by_class_name("section-star-display")
 			total_reviews = driver.find_element_by_class_name("section-rating-term")
 			address = driver.find_element_by_css_selector("[data-section-id='ad']")
-			phone_number = driver.find_element_by_css_selector("[data-section-id='pn0']")
+
+			try:
+				phone_number = driver.find_element_by_css_selector("[data-section-id='pn0']")
+			except:
+				pass
+
 			days = driver.find_elements_by_class_name("lo7U087hsMA__row-header")
 			times = driver.find_elements_by_class_name("lo7U087hsMA__row-interval")
 
@@ -106,8 +103,12 @@ def scrape_maps(data):
 			location_data[place_id]["rating"] = avg_rating.text
 			location_data[place_id]["reviews_count"] = total_reviews.text[1:-1]
 			location_data[place_id]["location"] = address.text
-			location_data[place_id]["contact"] = phone_number.text
 
+			try:
+				location_data[place_id]["contact"] = phone_number.text
+			except:
+				pass
+				
 			day = [a.text for a in days]
 			open_close_time = [a.text for a in times]
 

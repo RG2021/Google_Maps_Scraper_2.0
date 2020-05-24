@@ -68,7 +68,7 @@
 			<div class="w3-panel w3-card" style="height: 400px; width: 500px; margin-left: 30%; margin-top: 5%;">
 				<h1>Google Maps Scraper</h1><br><br>
 				<p>Upload a CSV File containing Place ID's or URL of Locations with "Places" as column name</p>
-				<form name="myForm1" method="post" action="/" onsubmit="disableButton();">
+				<form name="myForm1" method="post" action="/" enctype="multipart/form-data" onsubmit="disableButton();">
 				  <input type="file" accept=".csv" id="myFile" name="filename" onchange="showButton()">
 				  <input id="submitbutton" class="btn btn-primary btn-lg mr-2 mb-2" type="submit" name="submitbutton" value="Analyze Reviews" onclick="change();show();" disabled/>
 				</form>
@@ -119,13 +119,14 @@
 			i = 1;
 			var elem = document.getElementById("myBar");
 			var width = 1;
-			var id = setInterval(frame, 800);
+			var id = setInterval(frame, 620);
 			function frame()
 			{
 			  if (width >= 100)
 			  {
 				clearInterval(id);
 				i = 0;
+				show()
 			  }
 			  else
 			  {
